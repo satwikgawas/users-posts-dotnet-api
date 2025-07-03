@@ -163,7 +163,7 @@ app.MapGet("/api/posts/{id:int}", (int id) =>
         Description = postExists.Description,
         User = associatedUser
     };
-    return Results.Ok(postExists);
+    return Results.Ok(post);
 });
 
 // ---- GET API
@@ -183,7 +183,7 @@ app.MapGet("/api/posts", () =>
         User = Store.users.SingleOrDefault(u => u.Id == p.UserId) is UserModifiedResponse matchedUser
             ? new UserModifiedResponse  { Id= matchedUser.Id, UserName = matchedUser.UserName, UserEmail = matchedUser.UserEmail }
             : null
-    });
+    }).ToList();
 
     return Results.Ok(postsList);
 });
